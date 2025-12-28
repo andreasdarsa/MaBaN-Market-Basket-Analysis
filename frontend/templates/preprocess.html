@@ -40,6 +40,10 @@
                             <a class="nav-link" href="#">About</a>
                         </li>
                      </ul>
+                     <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                        <label class="form-check-label" for="darkModeSwitch">Dark Mode</label>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -54,37 +58,6 @@
             <p>After submitting the form, the application will clean and prepare your data for analysis using the Apriori algorithm.</p>
             <p>If you encounter any issues, please ensure that your CSV file is correctly formatted as per the instructions on the <a href="/upload">Upload</a> page.</p>
         </section> 
-        
-        <!-- File Info -->
-        <!--<section class="container mt-5">
-            <div id="upload-status" class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CSV Upload Status</h5>
-                    <div id="file-info">
-                        <p>No file uploaded yet.</p>
-                    </div>
-                </div>
-            </div>
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                const fileInfoDiv = document.getElementById('file-info');
-
-                // Αν χρησιμοποιούμε fetch για να πάρουμε info από backend
-                fetch('/csv_info')
-                    .then(res => res.json())
-                    .then(fileInfo => {
-                        if (fileInfo && fileInfo.fileName && typeof fileInfo.transactionCount === 'number') {
-                            fileInfoDiv.innerHTML = `
-                                <p><strong>File Name:</strong> ${fileInfo.fileName}</p>
-                                <p><strong>Number of Transactions:</strong> ${fileInfo.transactionCount}</p>
-                            `;
-                        } else {
-                            fileInfoDiv.innerHTML = `<p>No file uploaded yet.</p>`;
-                        }
-                    });
-                });
-            </script>
-        </section>-->
 
         <!-- Preprocessing steps -->
         <section class="container mt-5">

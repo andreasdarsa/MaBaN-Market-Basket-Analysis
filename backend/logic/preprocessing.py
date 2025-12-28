@@ -30,9 +30,6 @@ def clean_csv(path, min_support=0.005, min_items_per_transaction=2):
                for item, count in item_counts.items()
                if count / total_transactions >= min_support}
 
-    # also provide a serializable list form (useful for frontends that render arrays of objects)
-    support_list = [{"item": item, "support": value} for item, value in support.items()]
-
     # Remove items that do not meet the minimum support
     df['Items'] = df['Items'].apply(lambda items: [item for item in items if item in support])
 
@@ -45,7 +42,7 @@ def clean_csv(path, min_support=0.005, min_items_per_transaction=2):
         "removed transactions": total_transactions - len(df),
         "total items": len(all_items),
         "removed items": sum(item_counts[item] for item in item_counts if item not in support),
-        "support list": [[item, value] for item, value in support.items()],
+        "support list": [[item, value] for item, value in sorted(support.items(), key=lambda x: x[1], reverse=True)[:5]], # list of [item, support], only top 5 items by support
         "frequent items": len(support),
         "avg items per transaction": round(df['Items'].apply(len).mean(), 4)
     }

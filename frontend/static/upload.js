@@ -61,3 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// if dark mode is switched on, keep text inside upload section as-is for better visibility
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeSwitch = document.getElementById('darkModeSwitch');
+    const labelForUpload = document.querySelector('label[for="csv-file"]');
+    darkModeSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            labelForUpload.classList.add('text-dark');
+        }
+    });
+});

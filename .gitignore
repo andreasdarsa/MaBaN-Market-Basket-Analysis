@@ -1,5 +1,5 @@
 # Uploads folder
-backend/uploads/
+**/uploads/
 
 # venv folder
 mb_venv/

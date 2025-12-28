@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
     const fileInfoDiv = document.getElementById('file-info');
-
-    // Αν χρησιμοποιούμε fetch για να πάρουμε info από backend
     fetch('/api/file_info')
         .then(res => res.json())
         .then(fileInfo => {
@@ -19,8 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const previewDiv = document.getElementById('cleaned-data-preview');
-
-    // Αν χρησιμοποιούμε fetch για να πάρουμε το preview από backend
     fetch('/api/preprocess/preview')
         .then(res => res.json())
         .then(data => {
@@ -50,15 +46,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const summaryDiv = document.getElementById('data-summary');
-
-    // Αν χρησιμοποιούμε fetch για να πάρουμε το summary από backend
     fetch('/api/preprocess/stats')
         .then(res => res.json())
         .then(summary => {
             if (summary) {
                 let summaryHTML = '<ul>';
                 for (const [key, value] of Object.entries(summary)) {
-                    summaryHTML += `<li><strong>${key}:</strong> ${value}</li>`;
+                    // For the support list, make sure items are distinct and formatted properly
+                    if (key === 'support list' && Array.isArray(value)) {
+                        summaryHTML += `<li><strong>${key}:</strong><ul>`;
+                        value.forEach(item => {
+                            summaryHTML += `<li>${item[0]}: ${item[1]}</li>`;
+                        });
+                        summaryHTML += '</ul></li>';
+                    } else {
+                        summaryHTML += `<li><strong>${key}:</strong> ${value}</li>`;
+                    }
                 }
                 summaryHTML += '</ul>';
                 summaryDiv.innerHTML = summaryHTML;
