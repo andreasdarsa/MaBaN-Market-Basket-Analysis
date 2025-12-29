@@ -1,3 +1,40 @@
+// Dark mode persistence
+function applyDarkMode(isDark) {
+    if (isDark) {
+        document.body.classList.add('bg-dark', 'text-white');
+        document.querySelector('.navbar').classList.add('bg-dark');
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.classList.add('text-white');
+        });
+        const darkModeLabel = document.querySelector('label[for="darkModeSwitch"]');
+        if (darkModeLabel) {
+            darkModeLabel.textContent = "Light Mode";
+            darkModeLabel.classList.add('text-white');
+        }
+    } else {
+        document.body.classList.remove('bg-dark', 'text-white');
+        document.querySelector('.navbar').classList.remove('bg-dark');
+        document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
+            link.classList.remove('text-white');
+        });
+        const darkModeLabel = document.querySelector('label[for="darkModeSwitch"]');
+        if (darkModeLabel) {
+            darkModeLabel.textContent = "Dark Mode";
+            darkModeLabel.classList.remove('text-white');
+        }
+    }
+}
+
+// Apply saved dark mode preference on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const darkModeSwitch = document.getElementById('darkModeSwitch');
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    if (darkModeSwitch) {
+        darkModeSwitch.checked = savedDarkMode;
+        applyDarkMode(savedDarkMode);
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
 
     // Make the "About" link show an alert with information about the app
@@ -26,24 +63,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const darkModeLabel = document.querySelector('label[for="darkModeSwitch"]');
     // ensure dark mode stays on/off on all pages
     darkModeSwitch.addEventListener('change', function() {
-        if (this.checked) {
-            document.body.classList.add('bg-dark', 'text-white');
-            // navbar should also adjust color for visibility, same goes for navbar links
-            document.querySelector('.navbar').classList.add('bg-dark');
-            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-                link.classList.add('text-white');
-            });
-            darkModeLabel.textContent = "Light Mode";
-            // label should also adjust color for visibility
-            darkModeLabel.classList.add('text-white');
-        } else {
-            document.body.classList.remove('bg-dark', 'text-white');
-            document.querySelector('.navbar').classList.remove('bg-dark');
-            document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
-                link.classList.remove('text-white');
-            });
-            darkModeLabel.textContent = "Dark Mode";
-            darkModeLabel.classList.remove('text-white');
-        }
+        applyDarkMode(this.checked);
+        localStorage.setItem('darkMode', this.checked);
     });
 });
+
