@@ -34,9 +34,32 @@ Web App - Routes - REST API
 Frontend
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
 Styles
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+Containerization
 
 
 ## 💡 Installation
+
+### 🐳 Option 1: Using Docker (Recommended)
+
+1. Βεβαιώσου ότι έχεις εγκατεστημένο το Docker και Docker Compose
+2. Κάνε clone το repo:
+   ```bash
+   git clone <url>
+   cd <repo>
+   ```
+3. Χτίσε και τρέξε το container:
+   ```bash
+   docker-compose up --build
+   ```
+4. Άνοιξε το browser και πήγαινε στο `http://localhost:5000`
+
+Για να σταματήσεις το container:
+```bash
+docker-compose down
+```
+
+### 📦 Option 2: Manual Installation
 
 1. Κάνε clone το repo:
    ```bash
@@ -53,12 +76,24 @@ Styles
 3. Εγκατέστησε dependencies
    ```bash
    pip install -r requirements.txt
+   ```
 
 ## ▶️ Run the app
+
+### 🐳 Using Docker
+
+```bash
+docker-compose up
+```
+Το app θα είναι διαθέσιμο στο `http://localhost:5000`
+
+### 📦 Manual Run
+
 1. Τρέξε το backend
    ```bash
    cd backend
    py app.py
+   ```
 2. Άνοιξε το frontend
 
    Τρέχοντας το backend αυτόματα ανοίγει και το frontend.

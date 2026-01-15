@@ -6,3 +6,6 @@ mb_venv/
 
 # __pycache__ folders
 **/__pycache__/
+
+# Environment files
+.env

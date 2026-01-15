@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  maban-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: maban-market-basket-analysis
+    ports:
+      - "5000:5000"
+    volumes:
+      # Mount uploads directory to persist data
+      - ./backend/uploads:/app/backend/uploads
+    environment:
+      - FLASK_ENV=development
+      - FLASK_DEBUG=1
+      - DOCKER_ENV=1
+    restart: unless-stopped
