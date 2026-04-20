@@ -11,7 +11,5 @@ app.register_blueprint(back_bp, url_prefix='/api')
 app.register_blueprint(front_bp)
 
 if __name__ == "__main__":
-    # Only open browser if not running in Docker
-    if not os.environ.get('DOCKER_ENV'):
-        Timer(1, lambda: webbrowser.open("http://127.0.0.1:5000/")).start()
-    app.run(host='0.0.0.0', debug=True)
+    Timer(1, lambda: webbrowser.open("http://127.0.0.1:5000/")).start()
+    app.run(debug=True)

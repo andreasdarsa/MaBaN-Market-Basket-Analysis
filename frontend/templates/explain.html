@@ -5,7 +5,7 @@
         <title>MaBan - Market Basket Analysis</title>
         <link rel="icon" type="image/png" href="../static/maban_logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="styles.css" rel="stylesheet">
+        <link href="../static/styles.css" rel="stylesheet">
         <script src="../static/general.js" async></script>
         <script src="../static/explain.js" defer></script>
     </head>
@@ -52,7 +52,7 @@
         
         <section class="container mt-5" id="explain-section">
             <h2>Understanding Market Basket Analysis</h2>
-            <p>Market Basket Analysis (MBA) is a data mining technique used to uncover associations between items in large datasets of transactions. It helps businesses understand customer purchasing behavior by identifying patterns and relationships among products.</p>
+            <p>Market Basket Analysis (MBA) is a data mining technique used to uncover associations between items in large datasets of transactions. Understanding these associations can help you improve your business operations, such as product placement, cross-selling opportunities, and targeted marketing strategies.</p>
             <h3>Key Concepts</h3>
             <ul>
                 <li><strong>Transactions:</strong> A record of items purchased together by a customer during a single shopping trip.</li>
@@ -62,10 +62,11 @@
             <h3>Apriori Algorithm</h3>
             <p>The Apriori algorithm is a popular method for mining frequent itemsets and generating association rules. It operates on the principle that if an itemset is frequent, all of its subsets must also be frequent. The algorithm uses two main parameters:</p>
             <ul>
-                <li><strong>Support:</strong> The proportion of transactions that contain a particular itemset. It indicates how frequently an itemset appears in the dataset.</li>
-                <li><strong>Confidence:</strong> The likelihood that a transaction containing item A also contains item B. It measures the strength of the association rule.</li>
+                <li><strong>Support:</strong> The proportion of transactions that contain a particular itemset. It indicates how frequently an itemset appears in the dataset. For example, if 100 transactions are analyzed and 20 of them contain both milk and bread, the support for the itemset {milk, bread} is 20/100 = 0.2 or 20%.</li>
+                <li><strong>Confidence:</strong> The likelihood that a transaction containing item A also contains item B. It measures the strength of the association rule. For example, if 100 transactions contain both milk and bread, and 70 of those also contain jam, the confidence for the rule "milk and bread → jam" is 70/100 = 0.7 or 70%.</li>
+                <li><strong>Lift:</strong> The ratio of the observed support to that expected if A and B were independent. A lift value greater than 1 indicates a positive association between A and B, while a value less than 1 indicates a negative association. For example, if the support for {milk, bread} is 0.2 and the support for {jam} is 0.1, and the observed support for {milk, bread, jam} is 0.14, then the lift is 0.14 / (0.2 * 0.1) = 7.</li>
             </ul>
-            <p>By analyzing these metrics, businesses can make informed decisions about product placement, promotions, and inventory management.</p>
+            <p>By analyzing these metrics, you are able to make more informed decisions about product placement, promotions, and inventory management.</p>
         </section>
 
         <!-- Example use -->

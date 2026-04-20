@@ -54,8 +54,10 @@ def draw_rules_network(rules: pd.DataFrame) -> str:
     print(rules.head())
     G = nx.DiGraph() # V1 = antecedents, V2 = consequents, G = V1 union V2
 
+    min_confidence = 0.5  # You can adjust this threshold as needed
     for _, rule in rules.iterrows():
-        G.add_edge(str(rule['antecedents']), str(rule['consequents']), weight=rule['lift'])
+        if rule['confidence'] >= min_confidence:
+            G.add_edge(str(rule['antecedents']), str(rule['consequents']), weight=rule['confidence'])
 
     fig,ax = plt.subplots(figsize=(12,8))
     pos = nx.spring_layout(G=G, k=1)

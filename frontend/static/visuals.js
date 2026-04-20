@@ -1,68 +1,66 @@
-// Add heatmap visualization
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/visualize/heatmap')
-        .then(response => response.json())
-        .then(data => {
-            if (data.image) {
-                const img = document.createElement('img');
-                img.src = 'data:image/png;base64,' + data.image;
-                img.alt = 'Heatmap Visualization';
-                document.getElementById('graph-heatmap-container').appendChild(img);
-            } else {
-                console.error('No image data received for heatmap.');
-            }
-        })
-        .catch(error => console.error('Error fetching heatmap visualization:', error));
-});
 
-// Add frequent items visualization
+// Original design: show all visualizations at once
 document.addEventListener('DOMContentLoaded', function() {
-    const n = 10; // Number of top frequent items to display
-    fetch(`/api/visualize/frequent_items?n=${n}`) // Adjust the endpoint as necessary
-        .then(response => response.json())
-        .then(data => {
-            if (data.image) {
-                const img = document.createElement('img');
-                img.src = 'data:image/png;base64,' + data.image;
-                img.alt = 'Frequent Items Visualization';
-                document.getElementById('graph-frequent-items-container').appendChild(img);
-            } else {
-                console.error('No image data received for frequent items.');
-            }
-        })
-        .catch(error => console.error('Error fetching frequent items visualization:', error));
-});
+    const visuals = [
+        {
+            endpoint: '/api/visualize/heatmap',
+            alt: 'Heatmap Visualization',
+            title: 'Heatmap'
+        },
+        {
+            endpoint: '/api/visualize/frequent_items?n=10',
+            alt: 'Frequent Items Visualization',
+            title: 'Frequent Items'
+        },
+        {
+            endpoint: '/api/visualize/rules_network',
+            alt: 'Rules Network Visualization',
+            title: 'Rules Network'
+        },
+        {
+            endpoint: '/api/visualize/scatter_lift_support',
+            alt: 'Scatter Plot Visualization',
+            title: 'Scatter Plot'
+        }
+    ];
 
-// Add rules network visualization
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/visualize/rules_network') // Adjust the endpoint as necessary
-        .then(response => response.json())
-        .then(data => {
-            if (data.image) {
-                const img = document.createElement('img');
-                img.src = 'data:image/png;base64,' + data.image;
-                img.alt = 'Rules Network Visualization';
-                document.getElementById('graph-network-container').appendChild(img);
-            } else {
-                console.error('No image data received for rules network.');
-            }
-        })
-        .catch(error => console.error('Error fetching rules network visualization:', error));
-});
+    const container = document.getElementById('graphs-section');
+    if (!container) {
+        console.error('Visuals container not found!');
+        return;
+    }
 
-// Add scatter plot visualization
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('/api/visualize/scatter_lift_support') // Adjust the endpoint as necessary
-        .then(response => response.json())
-        .then(data => {
-            if (data.image) {
-                const img = document.createElement('img');
-                img.src = 'data:image/png;base64,' + data.image;
-                img.alt = 'Scatter Plot Visualization';
-                document.getElementById('graph-scatter-container').appendChild(img);
-            } else {
-                console.error('No image data received for scatter plot.');
-            }
-        })
-        .catch(error => console.error('Error fetching scatter plot visualization:', error));
+    visuals.forEach(visual => {
+        // Create a wrapper for each visual
+        const wrapper = document.createElement('div');
+        wrapper.className = 'visual-slide';
+        // Title
+        const title = document.createElement('h3');
+        title.textContent = visual.title;
+        wrapper.appendChild(title);
+        // Image placeholder
+        const img = document.createElement('img');
+        img.alt = visual.alt;
+        img.className = 'visual-img';
+        img.style.maxWidth = '100%';
+        img.style.height = 'auto';
+        wrapper.appendChild(img);
+        // Append wrapper to container
+        container.appendChild(wrapper);
+
+        // Fetch image
+        fetch(visual.endpoint)
+            .then(response => response.json())
+            .then(data => {
+                if (data.image) {
+                    img.src = 'data:image/png;base64,' + data.image;
+                } else {
+                    img.alt = 'No image data received';
+                }
+            })
+            .catch(error => {
+                img.alt = 'Error loading image';
+                console.error('Error fetching', visual.alt, ':', error);
+            });
+    });
 });
