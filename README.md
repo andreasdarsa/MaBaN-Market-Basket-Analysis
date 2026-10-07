@@ -1,5 +1,9 @@
 # MaBaN - Market Basket Analysis
 
+**This repository contains an earlier version of MaBaN**
+
+Active development has moved to **https://github.com/andreasdarsa/MaBaN**
+
 ![alt text](https://github.com/andreasdarsa/MaBaN-Market-Basket-Analysis/blob/main/frontend/static/maban_logo.png?raw=true)
 
 Ένα web εργαλείο για **ανάλυση συναλλαγών** με χρήση του **Apriori** αλγορίθμου και παραγωγή **association rules**.  
